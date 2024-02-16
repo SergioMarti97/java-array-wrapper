@@ -7,6 +7,9 @@
     <groupId>org.array.wrapper</groupId>
     <artifactId>java-array-wrapper</artifactId>
     <version>1.0</version>
+    <modules>
+        <module>java-array-texture</module>
+    </modules>
     <packaging>pom</packaging>
     <name>Java array wrapper</name>
 
