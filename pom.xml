@@ -9,6 +9,7 @@
     <version>1.0</version>
     <modules>
         <module>java-array-texture</module>
+        <module>java-array-showcase</module>
     </modules>
     <packaging>pom</packaging>
     <name>Java array wrapper</name>

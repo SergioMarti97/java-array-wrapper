@@ -1,2 +1,5 @@
 .idea
 /target
+java-array-texture/target
+java-array-showcase/target
+*.iml
