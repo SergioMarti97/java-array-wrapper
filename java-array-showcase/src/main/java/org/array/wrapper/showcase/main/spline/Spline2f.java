@@ -1,4 +1,4 @@
-package org.array.wrapper.showcase.main;
+package org.array.wrapper.showcase.main.spline;
 
 import org.joml.Vector2f;
 
