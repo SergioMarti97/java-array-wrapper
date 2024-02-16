@@ -4,16 +4,6 @@ import java.util.Arrays;
 
 public class Array2di extends Array2d<Integer> {
 
-    public interface CellConsumer {
-
-        boolean BREAK = true;
-
-        boolean CONTINUE = false;
-
-        boolean consume(Array2di array, int x, int y, int value);
-
-    }
-
     protected int[] array;
 
     // Constructors
@@ -96,19 +86,19 @@ public class Array2di extends Array2d<Integer> {
 
     // Iterative methods
 
-    public void forEach(final CellConsumer cc) {
+    public void forEach(final CellConsumer<Integer> cc) {
         iterate(cc, 0, array.length);
     }
 
-    public void forEach(final CellConsumer cc, final int fromX, final int fromY) {
+    public void forEach(final CellConsumer<Integer> cc, final int fromX, final int fromY) {
         iterate(cc, toIndex(fromX, fromY), array.length);
     }
 
-    public void forEach(final CellConsumer cc, final int fromX, final int fromY, final int toX, final int toY) {
+    public void forEach(final CellConsumer<Integer> cc, final int fromX, final int fromY, final int toX, final int toY) {
         iterate(cc, toIndex(fromX, fromY), toIndex(toX, toY));
     }
 
-    protected void iterate(final CellConsumer cc, final int fromIndex, final int toIndex) {
+    protected void iterate(final CellConsumer<Integer> cc, final int fromIndex, final int toIndex) {
         for (int index = fromIndex; index < toIndex; index++) {
             if (cc.consume(this, toX(index), toY(index), array[index])) {
                 break;
