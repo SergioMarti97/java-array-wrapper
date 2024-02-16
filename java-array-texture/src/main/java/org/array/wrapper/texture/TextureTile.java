@@ -10,12 +10,24 @@ public class TextureTile extends Texture {
 
     protected Array2dTexture grid;
 
+    /**
+     * The width which has the tiles of the bigger image
+     */
     protected final int tileW;
 
+    /**
+     * The height which has the tiles of the bigger image
+     */
     protected final int tileH;
 
+    /**
+     * The number of tiles what have the image sheet in x axis
+     */
     protected final int numTilesX;
 
+    /**
+     * The number of tiles what have the image sheet in y axis
+     */
     protected final int numTilesY;
 
     public TextureTile(int[] array, int width, int height, int tileW, int tileH) {
