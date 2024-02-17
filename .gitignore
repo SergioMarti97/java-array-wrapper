@@ -1,5 +1,5 @@
 .idea
 /target
 java-array-texture/target
-java-array-showcase/target
+java-array-wrapper/target
 *.iml
