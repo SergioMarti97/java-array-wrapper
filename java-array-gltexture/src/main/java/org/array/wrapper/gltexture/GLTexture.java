@@ -1,6 +1,7 @@
-package org.array.wrapper.texture;
+package org.array.wrapper.gltexture;
 
 import org.array.wrapper.Array2di;
+import org.array.wrapper.texture.Texture;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -17,6 +18,14 @@ public class GLTexture extends Texture {
 
     public GLTexture(int width, int height) {
         super(width, height);
+    }
+
+    public GLTexture(int[] array, int width, int height) {
+        super(array, width, height);
+    }
+
+    public GLTexture(int size) {
+        super(size);
     }
 
     public GLTexture(int initialValue, int width, int height) {
@@ -40,7 +49,7 @@ public class GLTexture extends Texture {
 
     public GLTexture(Texture texture) {
         super(texture);
-        super.alpha = texture.alpha;
+        super.alpha = texture.isAlpha();
         this.texture = loadTextureID();
     }
 

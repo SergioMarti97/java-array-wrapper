@@ -61,6 +61,10 @@ public class Texture extends Array2di {
         return alpha;
     }
 
+    public void setAlpha(boolean alpha) {
+        this.alpha = alpha;
+    }
+
     @Override
     public String toString() {
         return "Texture{" +

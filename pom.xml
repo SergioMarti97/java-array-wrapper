@@ -10,6 +10,7 @@
     <modules>
         <module>java-array-texture</module>
         <module>java-array-wrapper</module>
+        <module>java-array-gltexture</module>
     </modules>
     <packaging>pom</packaging>
     <name>Java array wrapper</name>
