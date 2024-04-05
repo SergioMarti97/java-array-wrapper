@@ -15,8 +15,27 @@ public class ShapeArrayOperations<T, ArrayType extends Array2d<T>> {
         this.array = array;
     }
 
+    // Getter & Setter for Array
+
+    public ArrayType getArray() {
+        return array;
+    }
+
+    public void setArray(ArrayType array) {
+        this.array = array;
+    }
+
+    // Methods
+
+    // Override this method if it is required (alpha processing for instance)
     protected void set(final int x, final int y, T v) {
         array.set(x, y, v);
+    }
+
+    public void fill(T v) {
+        for (int i = 0; i < array.size(); i++) {
+            array.set(i, v);
+        }
     }
 
     public void line(int x1, int y1, int x2, int y2, T v) {
