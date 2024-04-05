@@ -4,6 +4,7 @@ import org.array.wrapper.Array2d;
 import org.array.wrapper.transforms.Array2dTransformer;
 import org.joml.Vector2f;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class ShapeArrayOperations<T, ArrayType extends Array2d<T>> {
@@ -367,6 +368,340 @@ public class ShapeArrayOperations<T, ArrayType extends Array2d<T>> {
                     }
                 }
             }
+        }
+    }
+
+    protected void setPixelForTexturedTriangle(int y, int x, float tex_u, float tex_v, float tex_w, ArrayType texture) {
+        tex_w = tex_w == 0.0F ? 1.0F : tex_w;
+        T color = texture.getSample(tex_u / tex_w, tex_v / tex_w);
+
+        try {
+            this.set(x, y, color);
+        } catch (ArrayIndexOutOfBoundsException var10) {
+            String errorMessage = "X: " + x + " Y: " + y + " outside of " + array.getWidth() + "x" + array.getHeight();
+            System.out.println("Set pixel Error: " + errorMessage + var10.getMessage());
+        }
+
+    }
+
+    public void fillTexturedTriangle(
+            int x1, int y1, float u1, float v1, float w1,
+            int x2, int y2, float u2, float v2, float w2,
+            int x3, int y3, float u3, float v3, float w3,
+            ArrayType texture) {
+        int dy1;
+        float tempFloat;
+        if (y2 < y1) {
+            dy1 = y1;
+            y1 = y2;
+            y2 = dy1;
+            dy1 = x1;
+            x1 = x2;
+            x2 = dy1;
+            tempFloat = u1;
+            u1 = u2;
+            u2 = tempFloat;
+            tempFloat = v1;
+            v1 = v2;
+            v2 = tempFloat;
+            tempFloat = w1;
+            w1 = w2;
+            w2 = tempFloat;
+        }
+
+        if (y3 < y1) {
+            dy1 = y1;
+            y1 = y3;
+            y3 = dy1;
+            dy1 = x1;
+            x1 = x3;
+            x3 = dy1;
+            tempFloat = u1;
+            u1 = u3;
+            u3 = tempFloat;
+            tempFloat = v1;
+            v1 = v3;
+            v3 = tempFloat;
+            tempFloat = w1;
+            w1 = w3;
+            w3 = tempFloat;
+        }
+
+        if (y3 < y2) {
+            dy1 = y2;
+            y2 = y3;
+            y3 = dy1;
+            dy1 = x2;
+            x2 = x3;
+            x3 = dy1;
+            tempFloat = u2;
+            u2 = u3;
+            u3 = tempFloat;
+            tempFloat = v2;
+            v2 = v3;
+            v3 = tempFloat;
+            tempFloat = w2;
+            w2 = w3;
+            w3 = tempFloat;
+        }
+
+        dy1 = y2 - y1;
+        int dx1 = x2 - x1;
+        float dv1 = v2 - v1;
+        float du1 = u2 - u1;
+        float dw1 = w2 - w1;
+        int dy2 = y3 - y1;
+        int dx2 = x3 - x1;
+        float dv2 = v3 - v1;
+        float du2 = u3 - u1;
+        float dw2 = w3 - w1;
+        float dax_step = 0.0F;
+        float dbx_step = 0.0F;
+        float du1_step = 0.0F;
+        float dv1_step = 0.0F;
+        float du2_step = 0.0F;
+        float dv2_step = 0.0F;
+        float dw1_step = 0.0F;
+        float dw2_step = 0.0F;
+        if (dy1 != 0) {
+            dax_step = (float)dx1 / (float)Math.abs(dy1);
+        }
+
+        if (dy2 != 0) {
+            dbx_step = (float)dx2 / (float)Math.abs(dy2);
+        }
+
+        if (dy1 != 0) {
+            du1_step = du1 / (float)Math.abs(dy1);
+        }
+
+        if (dy1 != 0) {
+            dv1_step = dv1 / (float)Math.abs(dy1);
+        }
+
+        if (dy1 != 0) {
+            dw1_step = dw1 / (float)Math.abs(dy1);
+        }
+
+        if (dy2 != 0) {
+            du2_step = du2 / (float)Math.abs(dy2);
+        }
+
+        if (dy2 != 0) {
+            dv2_step = dv2 / (float)Math.abs(dy2);
+        }
+
+        if (dy2 != 0) {
+            dw2_step = dw2 / (float)Math.abs(dy2);
+        }
+
+        float tex_u;
+        float tex_v;
+        float tex_w;
+        int i;
+        int ax;
+        int bx;
+        float tex_su;
+        float tex_sv;
+        float tex_sw;
+        float tex_eu;
+        float tex_ev;
+        float tex_ew;
+        int tempInteger;
+        float t;
+        int j;
+        float tstep;
+        if (dy1 != 0) {
+            for(i = y1; i <= y2; ++i) {
+                ax = (int)((float)x1 + (float)(i - y1) * dax_step);
+                bx = (int)((float)x1 + (float)(i - y1) * dbx_step);
+                tex_su = u1 + (float)(i - y1) * du1_step;
+                tex_sv = v1 + (float)(i - y1) * dv1_step;
+                tex_sw = w1 + (float)(i - y1) * dw1_step;
+                tex_eu = u1 + (float)(i - y1) * du2_step;
+                tex_ev = v1 + (float)(i - y1) * dv2_step;
+                tex_ew = w1 + (float)(i - y1) * dw2_step;
+                if (ax > bx) {
+                    tempInteger = ax;
+                    ax = bx;
+                    bx = tempInteger;
+                    t = tex_su;
+                    tex_su = tex_eu;
+                    tex_eu = t;
+                    t = tex_sv;
+                    tex_sv = tex_ev;
+                    tex_ev = t;
+                    t = tex_sw;
+                    tex_sw = tex_ew;
+                    tex_ew = t;
+                }
+
+                tstep = 1.0F / (float)(bx - ax);
+                t = 0.0F;
+
+                for(j = ax; j < bx; ++j) {
+                    tex_u = (1.0F - t) * tex_su + t * tex_eu;
+                    tex_v = (1.0F - t) * tex_sv + t * tex_ev;
+                    tex_w = (1.0F - t) * tex_sw + t * tex_ew;
+                    this.setPixelForTexturedTriangle(i, j, tex_u, tex_v, tex_w, texture);
+                    t += tstep;
+                }
+            }
+        }
+
+        dy1 = y3 - y2;
+        dx1 = x3 - x2;
+        dv1 = v3 - v2;
+        du1 = u3 - u2;
+        dw1 = w3 - w2;
+        if (dy1 != 0) {
+            dax_step = (float)dx1 / (float)Math.abs(dy1);
+        }
+
+        if (dy2 != 0) {
+            dbx_step = (float)dx2 / (float)Math.abs(dy2);
+        }
+
+        du1_step = 0.0F;
+        dv1_step = 0.0F;
+        if (dy1 != 0) {
+            du1_step = du1 / (float)Math.abs(dy1);
+        }
+
+        if (dy1 != 0) {
+            dv1_step = dv1 / (float)Math.abs(dy1);
+        }
+
+        if (dy1 != 0) {
+            dw1_step = dw1 / (float)Math.abs(dy1);
+        }
+
+        if (dy1 != 0) {
+            for(i = y2; i <= y3; ++i) {
+                ax = (int)((float)x2 + (float)(i - y2) * dax_step);
+                bx = (int)((float)x1 + (float)(i - y1) * dbx_step);
+                tex_su = u2 + (float)(i - y2) * du1_step;
+                tex_sv = v2 + (float)(i - y2) * dv1_step;
+                tex_sw = w2 + (float)(i - y2) * dw1_step;
+                tex_eu = u1 + (float)(i - y1) * du2_step;
+                tex_ev = v1 + (float)(i - y1) * dv2_step;
+                tex_ew = w1 + (float)(i - y1) * dw2_step;
+                if (ax > bx) {
+                    tempInteger = ax;
+                    ax = bx;
+                    bx = tempInteger;
+                    t = tex_su;
+                    tex_su = tex_eu;
+                    tex_eu = t;
+                    t = tex_sv;
+                    tex_sv = tex_ev;
+                    tex_ev = t;
+                    t = tex_sw;
+                    tex_sw = tex_ew;
+                    tex_ew = t;
+                }
+
+                tstep = 1.0F / (float)(bx - ax);
+                t = 0.0F;
+
+                for(j = ax; j < bx; ++j) {
+                    tex_u = (1.0F - t) * tex_su + t * tex_eu;
+                    tex_v = (1.0F - t) * tex_sv + t * tex_ev;
+                    tex_w = (1.0F - t) * tex_sw + t * tex_ew;
+                    this.setPixelForTexturedTriangle(i, j, tex_u, tex_v, tex_w, texture);
+                    t += tstep;
+                }
+            }
+        }
+    }
+    
+    public void fillTexturedParallelogram(
+            int x1, int y1, float u1, float v1, float w1,
+            int x2, int y2, float u2, float v2, float w2,
+            int x3, int y3, float u3, float v3, float w3,
+            int x4, int y4, float u4, float v4, float w4,
+            ArrayType texture, T triangleStroke
+    ) {
+        fillTexturedTriangle(
+                x1,  y1,  u1,  v1,  w1, 
+                x2,  y2,  u2,  v2,  w2, 
+                x3,  y3,  u3,  v3,  w3, 
+                texture);
+        fillTexturedTriangle(
+                x1,  y1,  u1,  v1,  w1,
+                x3,  y3,  u3,  v3,  w3,
+                x4,  y4,  u4,  v4,  w4,
+                texture);
+        if (triangleStroke != null) {
+            strokeTriangle(x1,  y1, x2,  y2, x3,  y3, triangleStroke);
+            strokeTriangle(x1,  y1, x3,  y3, x4,  y4, triangleStroke);
+        }
+    }
+
+    public void fillWarpedDecal(ArrayType texture, Vector2f[] pos, T triangleStroke) {
+        float[] w = new float[4];
+        Arrays.fill(w, 1.0f);
+        Vector2f[] uv = new Vector2f[] {
+                new Vector2f(0.0f, 0.0f),
+                new Vector2f(0.0f, 1.0f),
+                new Vector2f(1.0f, 1.0f),
+                new Vector2f(1.0f, 0.0f)
+        };
+        Vector2f[] posdi = new Vector2f[] {
+                new Vector2f(),
+                new Vector2f(),
+                new Vector2f(),
+                new Vector2f()
+        };
+        Vector2f center = new Vector2f();
+
+        float rd = (pos[2].x - pos[0].x) * (pos[3].y - pos[1].y) - (pos[3].x - pos[1].x) * (pos[2].y - pos[0].y);
+
+        if (rd != 0) {
+            rd = 1.0f / rd;
+
+            float rn = ((pos[3].x - pos[1].x) * (pos[0].y - pos[1].y) - (pos[3].y - pos[1].y) * (pos[0].x - pos[1].x)) * rd;
+            float sn = ((pos[2].x - pos[0].x) * (pos[0].y - pos[1].y) - (pos[2].y - pos[0].y) * (pos[0].x - pos[1].x)) * rd;
+
+            if ( !(rn < 0.f || rn > 1.f || sn < 0.f || sn > 1.f) ) {
+                //center = pos[0] + rn * (pos[2] - pos[0]);
+                center.x = (pos[0].x + rn * (pos[2].x - pos[0].x));
+                center.y = (pos[0].y + rn * (pos[2].y - pos[0].y));
+            }
+
+            float[] d = new float[4];
+            for (int i = 0; i < 4; i++)	{
+                //d[i] = (pos[i] - center).mag();
+                // Para cada valor de d, se calcula la magnitud del vector resultante de pos[i] - centro
+                float vecX = pos[i].x - center.x;
+                float vecY = pos[i].y - center.y;
+                d[i] = (float)Math.sqrt(vecX * vecX + vecY * vecY);
+            }
+
+            for (int i = 0; i < 4; i++) {
+                //float up = d[i] + d[(i + 2) & 3];
+                //float down = d[(i + 2) & 3];
+                //down = (down == 0)? 1.0f : down;
+                float q = (d[i] == 0.0f) ? 1.0f : (d[i] + d[(i + 2) & 3]) / (d[(i + 2) & 3]);
+
+                //di.uv[i] *= q;
+                uv[i].mul(q);
+
+                //di.w[i] *= q;
+                w[i] *= q;
+
+                posdi[i].x = (pos[i].x);
+                posdi[i].y = (pos[i].y);
+            }
+            //di.mode = nDecalMode;
+            //vLayers[nTargetLayer].vecDecalInstance.push_back(di);
+
+            fillTexturedParallelogram(
+                    (int) posdi[0].x, (int) posdi[0].y, uv[0].x, uv[0].y, w[0],
+                    (int) posdi[1].x, (int) posdi[1].y, uv[1].x, uv[1].y, w[1],
+                    (int) posdi[2].x, (int) posdi[2].y, uv[2].x, uv[2].y, w[2],
+                    (int) posdi[3].x, (int) posdi[3].y, uv[3].x, uv[3].y, w[3],
+                    texture, triangleStroke);
         }
     }
 
