@@ -29,7 +29,9 @@ public class ShapeArrayOperations<T, ArrayType extends Array2d<T>> {
 
     // Override this method if it is required (alpha processing for instance)
     protected void set(final int x, final int y, T v) {
-        array.set(x, y, v);
+        if (array.isIndexValid(x, y)) {
+            array.set(x, y, v);
+        }
     }
 
     public void fill(T v) {
