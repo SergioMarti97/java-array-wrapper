@@ -55,22 +55,6 @@ public class Texture extends Array2di {
         load(image);
     }
 
-    public int getSample(float x, float y) {
-        int sampleX = Math.min((int)(x * (float)this.width), this.width > 0 ? this.width - 1 : this.width);
-        int sampleY = Math.min((int)(y * (float)this.height), this.height > 0 ? this.height - 1 : this.height);
-
-        int color;
-        try {
-            color = this.get(sampleX, sampleY);
-        } catch (ArrayIndexOutOfBoundsException var8) {
-            color = 0;
-            String errorMessage = "X: " + x + " Y: " + y + " outside of " + this.getWidth() + "x" + this.getHeight();
-            System.out.println("Get sample Error: " + errorMessage + var8.getMessage());
-        }
-
-        return color;
-    }
-
     // Getters
 
     public boolean isAlpha() {

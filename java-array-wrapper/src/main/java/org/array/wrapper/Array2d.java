@@ -27,6 +27,9 @@ public abstract class Array2d<T> {
 
     public abstract T getValue(final int i);
 
+    // todo implement a class called "Array2dSampler" with all the methods to take a sample from an array
+    public abstract T getSample(final float x, final float y);
+
     // Methods
 
     protected void validateArray(final int width, final int height) {

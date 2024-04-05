@@ -266,6 +266,11 @@ public class Array2df extends Array2d<Float> {
     }
 
     @Override
+    public Float getSample(float x, float y) {
+        return getValue((int) x, (int) y);
+    }
+
+    @Override
     public boolean equals(final Object object) {
         return object == this || object instanceof Array2df && ((Array2df) object).width == width // If width is equal
                 && Arrays.equals(((Array2df) object).array, array); // and arrays are the same size, height is equal.

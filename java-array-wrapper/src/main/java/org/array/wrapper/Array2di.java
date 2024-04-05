@@ -141,6 +141,23 @@ public class Array2di extends Array2d<Integer> {
     }
 
     @Override
+    public Integer getSample(float x, float y) {
+        int sampleX = Math.min((int)(x * (float)this.width), this.width > 0 ? this.width - 1 : this.width);
+        int sampleY = Math.min((int)(y * (float)this.height), this.height > 0 ? this.height - 1 : this.height);
+
+        int color;
+        try {
+            color = this.get(sampleX, sampleY);
+        } catch (ArrayIndexOutOfBoundsException var8) {
+            color = 0;
+            String errorMessage = "X: " + x + " Y: " + y + " outside of " + this.getWidth() + "x" + this.getHeight();
+            System.out.println("Get sample Error: " + errorMessage + var8.getMessage());
+        }
+
+        return color;
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Array2di)) return false;
