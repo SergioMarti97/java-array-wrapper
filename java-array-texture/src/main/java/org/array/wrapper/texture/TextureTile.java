@@ -3,6 +3,7 @@ package org.array.wrapper.texture;
 import org.array.wrapper.Array2di;
 import org.array.wrapper.operations.ShapeArray2diOperations;
 
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
@@ -68,6 +69,15 @@ public class TextureTile extends Texture {
 
     public TextureTile(Array2di array2di, int tileW, int tileH) {
         super(array2di);
+        this.tileW = tileW;
+        this.tileH = tileH;
+        numTilesX = width / tileW;
+        numTilesY = height / tileH;
+        grid = new Array2dTexture(this);
+    }
+
+    public TextureTile(BufferedImage image, int tileW, int tileH) {
+        super(image);
         this.tileW = tileW;
         this.tileH = tileH;
         numTilesX = width / tileW;

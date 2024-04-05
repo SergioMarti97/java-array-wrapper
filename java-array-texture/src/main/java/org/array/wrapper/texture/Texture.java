@@ -33,6 +33,11 @@ public class Texture extends Array2di {
         super(array2di);
     }
 
+    public Texture(BufferedImage image) {
+        super(0);
+        load(image);
+    }
+
     public Texture(File file) throws IOException {
         super(0);
         load(file);

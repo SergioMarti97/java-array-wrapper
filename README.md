@@ -47,7 +47,7 @@ almacena en un byte de información (0 - 255). Estos cuatro bytes se combinan en
 en forma hexadecimal.
 
 La clase *Texture* representa una matriz de integers donde cada integer es un pixel en formato ARGB. 
-Hereda de la clase *Array2di*, por lo tanto, se pueden realizar todas las operaciones y transformaciones sobre la imagen.
+Hereda de la clase *Array2di*, por lo tanto, se pueden realizar operaciones y transformaciones sobre la imagen.
 
 La clase *GLTexture* representa una textura de OpenGL.
 

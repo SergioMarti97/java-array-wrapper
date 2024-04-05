@@ -2,6 +2,7 @@ package org.array.wrapper.texture;
 
 import org.array.wrapper.Array2di;
 
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.nio.ByteBuffer;
@@ -22,6 +23,11 @@ public class GLTexture extends Texture {
         super(initialValue, width, height);
     }
 
+    public GLTexture(BufferedImage image) {
+        super(image);
+        texture = loadTextureID();
+    }
+
     public GLTexture(File file) throws IOException {
         super(file);
         texture = loadTextureID();
@@ -30,6 +36,12 @@ public class GLTexture extends Texture {
     public GLTexture(Array2di array2di) {
         super(array2di);
         texture = loadTextureID();
+    }
+
+    public GLTexture(Texture texture) {
+        super(texture);
+        super.alpha = texture.alpha;
+        this.texture = loadTextureID();
     }
 
     public int loadTextureID() {
