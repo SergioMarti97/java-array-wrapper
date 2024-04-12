@@ -2,7 +2,7 @@ package org.array.wrapper.operations;
 
 import org.array.wrapper.Array2di;
 
-public class ShapeArray2diOperations extends ShapeArrayOperations<Integer, Array2di> {
+public class ShapeArray2diOperations extends ShapeArray2dOperations<Integer, Array2di> {
 
     private boolean isProcessingAlpha = true;
 

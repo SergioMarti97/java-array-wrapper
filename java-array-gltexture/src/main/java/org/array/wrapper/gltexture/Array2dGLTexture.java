@@ -8,6 +8,8 @@ import java.util.function.Consumer;
 
 public class Array2dGLTexture extends Array2do<GLTexture> {
 
+    // todo esto falla
+
     public Array2dGLTexture(Array2do<GLTexture> array2do) {
         super(array2do);
     }

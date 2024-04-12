@@ -7,11 +7,11 @@ import org.joml.Vector2f;
 import java.util.Arrays;
 import java.util.List;
 
-public class ShapeArrayOperations<T, ArrayType extends Array2d<T>> {
+public class ShapeArray2dOperations<T, ArrayType extends Array2d<T>> {
 
     protected ArrayType array;
 
-    public ShapeArrayOperations(ArrayType array) {
+    public ShapeArray2dOperations(ArrayType array) {
         this.array = array;
     }
 
@@ -23,6 +23,14 @@ public class ShapeArrayOperations<T, ArrayType extends Array2d<T>> {
 
     public void setArray(ArrayType array) {
         this.array = array;
+    }
+
+    public int getWidth() {
+        return array.getWidth();
+    }
+
+    public int getHeight() {
+        return array.getHeight();
     }
 
     // Methods
