@@ -8,4 +8,8 @@ public class ShapeArray2dfOperations extends ShapeArray2dOperations<Float, Array
         super(array);
     }
 
+    public ShapeArray2dfOperations(final int width, final int height) {
+        this(new Array2df(width, height));
+    }
+
 }

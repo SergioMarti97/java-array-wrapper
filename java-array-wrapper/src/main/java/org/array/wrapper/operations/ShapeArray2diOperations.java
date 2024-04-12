@@ -6,6 +6,10 @@ public class ShapeArray2diOperations extends ShapeArray2dOperations<Integer, Arr
 
     private boolean isProcessingAlpha = true;
 
+    public ShapeArray2diOperations(final int width, final int height) {
+        this(new Array2di(width, height));
+    }
+
     public ShapeArray2diOperations(Array2di array) {
         super(array);
     }
