@@ -158,6 +158,11 @@ public class Array2di extends Array2d<Integer> {
     }
 
     @Override
+    public Integer getSample(float x) {
+        return getSample(toX((int) x), toY((int) x));
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Array2di)) return false;

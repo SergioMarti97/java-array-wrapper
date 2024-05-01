@@ -1,6 +1,6 @@
 package org.array.wrapper;
 
-public abstract class Array2d<T> {
+public abstract class Array2d<T> extends Array1d<T> {
 
     protected int width;
 
@@ -55,7 +55,7 @@ public abstract class Array2d<T> {
     }
 
     public int toY(final int index) {
-        return index % width;
+        return index / width;
     }
 
     // Getters

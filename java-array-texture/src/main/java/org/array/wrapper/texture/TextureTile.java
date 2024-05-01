@@ -6,6 +6,8 @@ import org.array.wrapper.operations.ShapeArray2diOperations;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
 
 public class TextureTile extends Texture {
 
@@ -133,6 +135,14 @@ public class TextureTile extends Texture {
 
     public Array2dTexture getGrid() {
         return grid;
+    }
+
+    public Texture[] getTexturesArray() {
+        return grid.getArray();
+    }
+
+    public List<Texture> getTexturesList() {
+        return Arrays.asList(getTexturesArray());
     }
 
     @Override

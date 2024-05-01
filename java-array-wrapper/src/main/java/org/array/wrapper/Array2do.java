@@ -129,6 +129,11 @@ public abstract class Array2do<T> extends Array2d<T> implements Iterable<T> {
     }
 
     @Override
+    public T getSample(float x) {
+        return getSample(toX((int) x), toY((int) x));
+    }
+
+    @Override
     public Iterator<T> iterator() {
         return new ArrayIterator();
     }

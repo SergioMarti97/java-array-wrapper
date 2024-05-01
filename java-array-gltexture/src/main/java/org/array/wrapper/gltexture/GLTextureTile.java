@@ -6,6 +6,8 @@ import org.array.wrapper.operations.ShapeArray2diOperations;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
 
 public class GLTextureTile extends GLTexture {
     
@@ -120,6 +122,14 @@ public class GLTextureTile extends GLTexture {
 
     public Array2dGLTexture getGrid() {
         return grid;
+    }
+
+    public GLTexture[] getTexturesArray() {
+        return grid.getArray();
+    }
+
+    public List<GLTexture> getTexturesList() {
+        return Arrays.asList(getTexturesArray());
     }
 
     @Override
