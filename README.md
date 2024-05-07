@@ -6,7 +6,7 @@ Este repositorio contiene un conjunto de clases útiles para trabajar con arrays
 
 **Fecha**: 16/02/2024
 
-**Versión**: 1.0
+**Versión**: 2.0
 
 **Dependencias**
 
