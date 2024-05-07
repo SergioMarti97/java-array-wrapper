@@ -1,11 +1,11 @@
-package org.array.wrapper;
+package org.array.wrapper.d1;
 
-public interface CellConsumer<T> {
+public interface CellConsumer1d<T> {
 
     boolean BREAK = true;
 
     boolean CONTINUE = false;
 
-    boolean consume(Array2d<T> array, int x, int y, T value);
+    boolean consume(Array1d<T> array1d, int x, T value);
 
 }
