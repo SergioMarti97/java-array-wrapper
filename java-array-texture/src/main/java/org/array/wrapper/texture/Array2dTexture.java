@@ -1,7 +1,7 @@
 package org.array.wrapper.texture;
 
-import org.array.wrapper.Array2di;
-import org.array.wrapper.Array2do;
+import org.array.wrapper.d2.Array2di;
+import org.array.wrapper.d2.Array2do;
 
 public class Array2dTexture extends Array2do<Texture> {
 

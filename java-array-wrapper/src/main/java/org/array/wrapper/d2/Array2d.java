@@ -1,15 +1,16 @@
-package org.array.wrapper;
+package org.array.wrapper.d2;
+
+import org.array.wrapper.CellConsumer;
+import org.array.wrapper.d1.Array1d;
 
 public abstract class Array2d<T> extends Array1d<T> {
-
-    protected int width;
 
     protected int height;
 
     // Constructors
 
     public Array2d(final int width, final int height) {
-        this.width = width;
+        super(width);
         this.height = height;
     }
 
@@ -21,19 +22,39 @@ public abstract class Array2d<T> extends Array1d<T> {
 
     public abstract void set(final int x, final int y, final T v);
 
-    public abstract void set(final int i, T v);
-
     public abstract T getValue(final int x, final int y);
 
-    public abstract T getValue(final int i);
+    public T getSample(final float x, final float y) {
+        int sampleX = Math.min((int)(x * (float)this.width), this.width > 0 ? this.width - 1 : this.width);
+        int sampleY = Math.min((int)(y * (float)this.height), this.height > 0 ? this.height - 1 : this.height);
 
-    // todo implement a class called "Array2dSampler" with all the methods to take a sample from an array
-    public abstract T getSample(final float x, final float y);
+        try {
+            return this.getValue(sampleX, sampleY);
+        } catch (ArrayIndexOutOfBoundsException var8) {
+            String errorMessage = "X: " + x + " Y: " + y + " outside of " + this.getWidth() + "x" + this.getHeight();
+            System.out.println("Get sample Error: " + errorMessage + var8.getMessage());
+        }
+
+        return null;
+    }
+
+    // Abstract methods: getRow and getColumn
+
+    public abstract Array1d<T> getRow(final int nRow);
+
+    public abstract Array1d<T> getColumn(final int nCol);
+
+    // Iterative methods
+
+    public void forEach(final CellConsumer<T> cc, final int fromX, final int fromY, final int toX, final int toY) {
+        iterate(cc, toIndex(fromX, fromY), toIndex(toX, toY));
+    }
 
     // Methods
 
     protected void validateArray(final int width, final int height) {
-        if (width != this.width || height != this.height) {
+        super.validateArray(width);
+        if (height != this.height) {
             throw new IllegalStateException("Grid's sizes do not match. Unable to perform operation.");
         }
     }
@@ -43,15 +64,11 @@ public abstract class Array2d<T> extends Array1d<T> {
     }
 
     public boolean isIndexValid(final int x, final int y) {
-        return x >= 0 && x < width && y >= 0 && y < height;
+        return super.isIndexValid(x) && y >= 0 && y < height;
     }
 
     public int toIndex(final int x, final int y) {
         return y * width + x;
-    }
-
-    public int toX(final int index) {
-        return index % width;
     }
 
     public int toY(final int index) {
@@ -60,21 +77,30 @@ public abstract class Array2d<T> extends Array1d<T> {
 
     // Getters
 
-    public int getWidth() {
-        return width;
-    }
-
     public int getHeight() {
         return height;
     }
 
     public int size() {
-        return width * height;
+        return super.size() * height;
     }
 
     @Override
     public String toString() {
-        return "width = " + width + " height = " + height;
+        final StringBuilder out = new StringBuilder();
+        out.append("width = ").append(width).append(" height = ").append(height).append('\n');
+        forEach((array, index, value) -> {
+            int x = toX(index);
+            int y = toY(index);
+            out.append('[').append(x).append(',').append(y).append('|').append(value).append(']');
+            if (x == getWidth() - 1) {
+                out.append('\n');
+            } else {
+                out.append(' ');
+            }
+            return CellConsumer.CONTINUE;
+        });
+        return out.toString();
     }
 
 }

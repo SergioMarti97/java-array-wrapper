@@ -1,5 +1,6 @@
 package org.array.wrapper.texture;
 
+import org.console.colors.ColorsASCII;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
@@ -14,8 +15,12 @@ class TextureTileTest {
     void getTile() throws IOException {
         final String filename = Paths.get( "src", "test", "resources", "Joseph21_05.png").toAbsolutePath().toString();
         TextureTile tt = new TextureTile(new File(filename), 32, 32);
-        Texture t = tt.getTile(2);
-        assertNotNull(t);
+        // Texture t = tt.getTile(3);
+        // assertNotNull(t);
+        for (var t : tt.getGrid().getArray()) {
+            ColorsASCII.renderTexture(t);
+            assertNotNull(t);
+        }
     }
 
 }

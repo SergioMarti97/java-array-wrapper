@@ -1,7 +1,7 @@
 package org.array.wrapper.texture;
 
-import org.array.wrapper.Array2di;
-import org.array.wrapper.operations.ShapeArray2diOperations;
+import org.array.wrapper.d2.Array2di;
+import org.array.wrapper.d2.operations.ShapeArray2diOperations;
 
 import java.awt.image.BufferedImage;
 import java.io.File;

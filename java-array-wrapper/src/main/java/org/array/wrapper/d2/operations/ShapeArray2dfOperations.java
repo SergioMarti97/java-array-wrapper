@@ -1,6 +1,6 @@
-package org.array.wrapper.operations;
+package org.array.wrapper.d2.operations;
 
-import org.array.wrapper.Array2df;
+import org.array.wrapper.d2.Array2df;
 
 public class ShapeArray2dfOperations extends ShapeArray2dOperations<Float, Array2df> {
 

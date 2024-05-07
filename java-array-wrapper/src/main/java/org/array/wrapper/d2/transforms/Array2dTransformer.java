@@ -1,6 +1,6 @@
-package org.array.wrapper.transforms;
+package org.array.wrapper.d2.transforms;
 
-import org.array.wrapper.Array2d;
+import org.array.wrapper.d2.Array2d;
 import org.joml.Matrix3f;
 import org.joml.Vector2f;
 import org.joml.Vector3f;

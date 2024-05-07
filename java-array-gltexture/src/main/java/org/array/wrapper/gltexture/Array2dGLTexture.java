@@ -1,10 +1,7 @@
 package org.array.wrapper.gltexture;
 
-import org.array.wrapper.Array2di;
-import org.array.wrapper.Array2do;
-
-import java.util.Spliterator;
-import java.util.function.Consumer;
+import org.array.wrapper.d2.Array2di;
+import org.array.wrapper.d2.Array2do;
 
 public class Array2dGLTexture extends Array2do<GLTexture> {
 

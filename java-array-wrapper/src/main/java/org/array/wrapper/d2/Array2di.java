@@ -1,4 +1,8 @@
-package org.array.wrapper;
+package org.array.wrapper.d2;
+
+import org.array.wrapper.CellConsumer;
+import org.array.wrapper.d1.Array1d;
+import org.array.wrapper.d1.Array1di;
 
 import java.util.Arrays;
 
@@ -11,19 +15,19 @@ public class Array2di extends Array2d<Integer> {
     public Array2di(final int[] array, final int width, final int height) {
         super(width, height);
         this.array = array;
-        if (array.length != width * height) {
+        if (array.length != size()) {
             throw new IllegalArgumentException("Array with length: " + array.length
                     + " is too small or too big to store a grid with " + width + " columns and " + height + " rows.");
         }
     }
 
-    public Array2di(final int initialValue, final int width, final int height) {
-        this(new int[width * height], width, height);
-        set(initialValue);
-    }
-
     public Array2di(int width, int height) {
         this(new int[width * height], width, height);
+    }
+
+    public Array2di(final int initialValue, final int width, final int height) {
+        this(width, height);
+        set(initialValue);
     }
 
     public Array2di(int size) {
@@ -57,6 +61,8 @@ public class Array2di extends Array2d<Integer> {
         return this;
     }
 
+    // Fill methods
+
     public void fill(final int value) {
         set(value);
     }
@@ -86,26 +92,18 @@ public class Array2di extends Array2d<Integer> {
 
     // Iterative methods
 
-    public void forEach(final CellConsumer<Integer> cc) {
-        iterate(cc, 0, array.length);
-    }
-
-    public void forEach(final CellConsumer<Integer> cc, final int fromX, final int fromY) {
-        iterate(cc, toIndex(fromX, fromY), array.length);
-    }
-
-    public void forEach(final CellConsumer<Integer> cc, final int fromX, final int fromY, final int toX, final int toY) {
-        iterate(cc, toIndex(fromX, fromY), toIndex(toX, toY));
-    }
-
+    @Override
     protected void iterate(final CellConsumer<Integer> cc, final int fromIndex, final int toIndex) {
         for (int index = fromIndex; index < toIndex; index++) {
-            if (cc.consume(this, toX(index), toY(index), array[index])) {
+            if (cc.consume(this, index, array[index])) { // toX(index), toY(index)
                 break;
             }
         }
     }
 
+    // Copy methods
+
+    @Override
     public Array2di copy() {
         final int[] copy = new int[array.length];
         System.arraycopy(array, 0, copy, 0, copy.length);
@@ -142,24 +140,29 @@ public class Array2di extends Array2d<Integer> {
 
     @Override
     public Integer getSample(float x, float y) {
-        int sampleX = Math.min((int)(x * (float)this.width), this.width > 0 ? this.width - 1 : this.width);
-        int sampleY = Math.min((int)(y * (float)this.height), this.height > 0 ? this.height - 1 : this.height);
-
-        int color;
-        try {
-            color = this.get(sampleX, sampleY);
-        } catch (ArrayIndexOutOfBoundsException var8) {
-            color = 0;
-            String errorMessage = "X: " + x + " Y: " + y + " outside of " + this.getWidth() + "x" + this.getHeight();
-            System.out.println("Get sample Error: " + errorMessage + var8.getMessage());
-        }
-
-        return color;
+        Integer color = super.getSample(x, y);
+        return color == null ? 0 : color;
     }
 
     @Override
     public Integer getSample(float x) {
         return getSample(toX((int) x), toY((int) x));
+    }
+
+    // Abstract methods: getRow and getColumn
+
+    @Override
+    public Array1di getRow(int nRow) {
+        return new Array1di(Arrays.copyOfRange(array, nRow, nRow + width), width);
+    }
+
+    @Override
+    public Array1di getColumn(int nCol) {
+        int[] col = new int[height];
+        for (int i = 0; i < height; i++) {
+            col[i] = get(nCol, i);
+        }
+        return new Array1di(col, height);
     }
 
     @Override
@@ -173,21 +176,6 @@ public class Array2di extends Array2d<Integer> {
     @Override
     public int hashCode() {
         return Arrays.hashCode(getArray());
-    }
-
-    @Override
-    public String toString() {
-        final StringBuilder out = new StringBuilder();
-        forEach((array, x, y, value) -> {
-            out.append('[').append(x).append(',').append(y).append('|').append(value).append(']');
-            if (x == array.width - 1) {
-                out.append('\n');
-            } else {
-                out.append(' ');
-            }
-            return CellConsumer.CONTINUE;
-        });
-        return out.toString();
     }
 
 }

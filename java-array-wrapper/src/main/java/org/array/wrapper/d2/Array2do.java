@@ -1,4 +1,8 @@
-package org.array.wrapper;
+package org.array.wrapper.d2;
+
+import org.array.wrapper.CellConsumer;
+import org.array.wrapper.d1.Array1d;
+import org.array.wrapper.d1.Array1do;
 
 import java.util.Arrays;
 import java.util.Iterator;
@@ -10,6 +14,16 @@ public abstract class Array2do<T> extends Array2d<T> implements Iterable<T> {
 
     public static <Type> Array2do<Type> newNotType(final int width, final int height) {
         return new Array2do<>(width, height) {
+            @Override
+            @SuppressWarnings("unchecked")
+            protected Type[] instanceArray(final int size) {
+                return (Type[]) new Object[size];
+            }
+        };
+    }
+
+    public static <Type> Array2do<Type> newNotType(Type[] array, final int width, final int height) {
+        return new Array2do<>(array, width, height) {
             @Override
             @SuppressWarnings("unchecked")
             protected Type[] instanceArray(final int size) {
@@ -32,7 +46,7 @@ public abstract class Array2do<T> extends Array2d<T> implements Iterable<T> {
 
     public Array2do(final T[] array, final int width, final int height) {
         super(width, height);
-        if (array.length < width * height) {
+        if (array.length != size()) {
             throw new IllegalArgumentException(
                     "Passed array is too small. Expected length: " + width * height + ", received: " + array.length);
         }
@@ -50,6 +64,17 @@ public abstract class Array2do<T> extends Array2d<T> implements Iterable<T> {
     // Abstract methods
 
     protected abstract T[] instanceArray(int size);
+
+    // Iterative methods
+
+    @Override
+    protected void iterate(CellConsumer<T> cc, int fromIndex, int toIndex) {
+        for (int index = fromIndex; index < toIndex; index++) {
+            if (cc.consume(this, index, array[index])) {
+                break;
+            }
+        }
+    }
 
     // Methods
 
@@ -96,6 +121,15 @@ public abstract class Array2do<T> extends Array2d<T> implements Iterable<T> {
         set(array.width, array.height, array.array);
     }
 
+    // Copy methods
+
+    @Override
+    public Array2do<T> copy() {
+        final T[] copy = instanceArray(size());
+        System.arraycopy(array, 0, copy, 0, copy.length);
+        return Array2do.<T>newNotType(copy, width, height);
+    }
+
     // Getters
 
     public T[] getArray() {
@@ -104,6 +138,23 @@ public abstract class Array2do<T> extends Array2d<T> implements Iterable<T> {
 
     public Object[] getObjectArray() {
         return array;
+    }
+
+    // Inherit methods: getRow and getColumn
+
+    @Override
+    public Array1d<T> getRow(int nRow) {
+        return Array1do.newNotType(Arrays.copyOfRange(array, nRow, nRow + width), width);
+    }
+
+    @Override
+    public Array1d<T> getColumn(int nCol) {
+        @SuppressWarnings("unchecked")
+        final T[] col = (T[]) new Object[height];
+        for (int i = 0; i < height; i++) {
+            col[i] = get(nCol, i);
+        }
+        return Array1do.newNotType(col, height);
     }
 
     // Inherit methods

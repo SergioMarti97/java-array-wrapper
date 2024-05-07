@@ -1,6 +1,6 @@
 package org.array.wrapper.texture;
 
-import org.array.wrapper.Array2di;
+import org.array.wrapper.d2.Array2di;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;

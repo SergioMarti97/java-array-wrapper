@@ -1,7 +1,7 @@
-package org.array.wrapper.operations;
+package org.array.wrapper.d2.operations;
 
-import org.array.wrapper.Array2d;
-import org.array.wrapper.transforms.Array2dTransformer;
+import org.array.wrapper.d2.Array2d;
+import org.array.wrapper.d2.transforms.Array2dTransformer;
 import org.joml.Vector2f;
 
 import java.util.Arrays;

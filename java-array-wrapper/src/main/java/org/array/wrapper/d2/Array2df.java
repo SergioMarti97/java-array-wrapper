@@ -1,4 +1,8 @@
-package org.array.wrapper;
+package org.array.wrapper.d2;
+
+import org.array.wrapper.CellConsumer;
+import org.array.wrapper.d1.Array1df;
+import org.array.wrapper.d1.Array1di;
 
 import java.util.Arrays;
 
@@ -11,7 +15,7 @@ public class Array2df extends Array2d<Float> {
     public Array2df(final float[] array, final int width, final int height) {
         super(width, height);
         this.array = array;
-        if (array.length != width * height) {
+        if (array.length != size()) {
             throw new IllegalArgumentException("Array with length: " + array.length
                     + " is too small or too big to store a grid with " + width + " columns and " + height + " rows.");
         }
@@ -97,21 +101,10 @@ public class Array2df extends Array2d<Float> {
 
     // Iterative methods
 
-    public void forEach(final CellConsumer<Float> cc) {
-        iterate(cc, 0, array.length);
-    }
-
-    public void forEach(final CellConsumer<Float> cc, final int fromX, final int fromY) {
-        iterate(cc, toIndex(fromX, fromY), array.length);
-    }
-
-    public void forEach(final CellConsumer<Float> cc, final int fromX, final int fromY, final int toX, final int toY) {
-        iterate(cc, toIndex(fromX, fromY), toIndex(toX, toY));
-    }
-
+    @Override
     protected void iterate(final CellConsumer<Float> cc, final int fromIndex, final int toIndex) {
         for (int index = fromIndex; index < toIndex; index++) {
-            if (cc.consume(this, toX(index), toY(index), array[index])) {
+            if (cc.consume(this, index, array[index])) { // toX(index), toY(index)
                 break;
             }
         }
@@ -231,6 +224,9 @@ public class Array2df extends Array2d<Float> {
         return this;
     }
 
+    // Copy methods
+
+    @Override
     public Array2df copy() {
         final float[] copy = new float[array.length];
         System.arraycopy(array, 0, copy, 0, copy.length);
@@ -267,12 +263,29 @@ public class Array2df extends Array2d<Float> {
 
     @Override
     public Float getSample(float x, float y) {
-        return getValue((int) x, (int) y);
+        Float color = super.getSample(x, y);
+        return color == null ? 0.0f : color;
     }
 
     @Override
     public Float getSample(float x) {
         return getValue(toX((int) x), toY((int) x));
+    }
+
+    // Abstract methods: getRow and getColumn
+
+    @Override
+    public Array1df getRow(int nRow) {
+        return new Array1df(Arrays.copyOfRange(array, nRow, nRow + width), width);
+    }
+
+    @Override
+    public Array1df getColumn(int nCol) {
+        final float[] col = new float[height];
+        for (int i = 0; i < height; i++) {
+            col[i] = get(nCol, i);
+        }
+        return new Array1df(col, height);
     }
 
     @Override
@@ -284,21 +297,6 @@ public class Array2df extends Array2d<Float> {
     @Override
     public int hashCode() {
         return Arrays.hashCode(array);
-    }
-
-    @Override
-    public String toString() {
-        final StringBuilder out = new StringBuilder();
-        forEach((array, x, y, value) -> {
-            out.append('[').append(x).append(',').append(y).append('|').append(value).append(']');
-            if (x == array.width - 1) {
-                out.append('\n');
-            } else {
-                out.append(' ');
-            }
-            return CellConsumer.CONTINUE;
-        });
-        return out.toString();
     }
 
 }

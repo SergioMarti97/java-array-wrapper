@@ -1,7 +1,7 @@
-package org.array.wrapper.transforms;
+package org.array.wrapper.d2.transforms;
 
-import org.array.wrapper.Array2d;
-import org.array.wrapper.Array2di;
+import org.array.wrapper.d2.Array2d;
+import org.array.wrapper.d2.Array2di;
 
 public class Array2diTransformer extends Array2dTransformer<Integer> {
 

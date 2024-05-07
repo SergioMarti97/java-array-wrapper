@@ -1,6 +1,6 @@
-package org.array.wrapper.operations;
+package org.array.wrapper.d2.operations;
 
-import org.array.wrapper.Array2do;
+import org.array.wrapper.d2.Array2do;
 
 public class ShapeArray2doOperations<T> extends ShapeArray2dOperations<T, Array2do<T>> {
 

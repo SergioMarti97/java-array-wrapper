@@ -1,7 +1,12 @@
 package org.console.colors;
 
+import org.array.wrapper.texture.Texture;
+import org.array.wrapper.texture.TextureTile;
 import org.joml.Vector3i;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -169,7 +174,7 @@ public class ColorsASCII {
         l.add(ANSI_CHAR_BLOCK_1);
         l.add(ANSI_CHAR_BLOCK_2);
         l.add(ANSI_CHAR_BLOCK_3);
-        l.add(ANSI_CHAR_BLOCK_4);
+        // l.add(ANSI_CHAR_BLOCK_4);
         return l;
     }
 
@@ -220,12 +225,12 @@ public class ColorsASCII {
         final int g = (in >> 8) & 0xFF;
         final int b = (in) & 0xFF;
 
-        String color = "";
-        double actualDistance = Double.MAX_VALUE;
+        String color = " ";
+        double actualDistance = 0;
         for (var e : availableColors.entrySet()) {
             var v = e.getKey();
             double dist = (r * v.x + g * v.y + b * v.z) / (Math.sqrt(r * r + g * g + b * b) * v.length());
-            if (actualDistance > dist) {
+            if (actualDistance < dist) {
                 actualDistance = dist;
                 color = e.getValue();
             }
@@ -234,7 +239,21 @@ public class ColorsASCII {
         return color;
     }
 
-    public static void main(String[] args) {
+    public static void renderTexture(Texture t) {
+        var colors = generateAllColors();
+        StringBuilder out = new StringBuilder();
+        for (int y = 0; y < t.getHeight(); y++) {
+            for (int x = 0; x < t.getWidth(); x++) {
+                int color = t.get(x, y);
+                out.append(castRGB(color, colors));
+            }
+            out.append(ANSI_RESET).append('\n');
+        }
+        out.append(ANSI_RESET);
+        System.out.println(out);
+    }
+
+    public static void main(String[] args) throws IOException {
         System.out.println(ANSI_BRIGHT_BLUE + ANSI_BRIGHT_RED_BACKGROUND + "░▒▓█\n" + ANSI_RESET);
 
         /*StringBuilder out = new StringBuilder();

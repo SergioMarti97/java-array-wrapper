@@ -1,7 +1,7 @@
-package org.array.wrapper.transforms;
+package org.array.wrapper.d2.transforms;
 
-import org.array.wrapper.Array2d;
-import org.array.wrapper.Array2df;
+import org.array.wrapper.d2.Array2d;
+import org.array.wrapper.d2.Array2df;
 
 public class Array2dfTransformer extends Array2dTransformer<Float> {
 

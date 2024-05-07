@@ -16,6 +16,11 @@
 
     <dependencies>
         <dependency>
+            <groupId>org.joml</groupId>
+            <artifactId>joml</artifactId>
+            <version>1.10.5</version>
+        </dependency>
+        <dependency>
             <groupId>org.array</groupId>
             <artifactId>java-array-wrapper</artifactId>
             <version>1.0</version>
