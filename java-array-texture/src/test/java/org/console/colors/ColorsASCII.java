@@ -1,12 +1,9 @@
 package org.console.colors;
 
 import org.array.wrapper.texture.Texture;
-import org.array.wrapper.texture.TextureTile;
 import org.joml.Vector3i;
 
-import java.io.File;
 import java.io.IOException;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -254,21 +251,19 @@ public class ColorsASCII {
     }
 
     public static void main(String[] args) throws IOException {
-        System.out.println(ANSI_BRIGHT_BLUE + ANSI_BRIGHT_RED_BACKGROUND + "░▒▓█\n" + ANSI_RESET);
-
-        /*StringBuilder out = new StringBuilder();
+        var colors = generateAllColors();
+        System.out.printf("Número de colores disponibles: %d\n", colors.size());
+        StringBuilder out = new StringBuilder();
         for (String background : generateListBackgroundASCII()) {
             for (String front : generateListColorsASCII()) {
                 for (char c : generateListCharacters()) {
                     out.append(background).append(front).append(c);
                 }
             }
-            out.append('\n');
+            out.append(ANSI_RESET).append('\n');
         }
         out.append(ANSI_RESET).append('\n');
-        System.out.println(out);*/
-        var colors = generateAllColors();
-        System.out.printf("Número de colores disponibles: %d", colors.size());
+        System.out.println(out);
     }
 
 }

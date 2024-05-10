@@ -1,0 +1,28 @@
+folder icon:
+<a href="https://www.flaticon.es/iconos-gratis/carpeta" title="carpeta iconos">Carpeta iconos creados por DinosoftLabs - Flaticon</a>
+reload icon:
+<a href="https://www.flaticon.es/iconos-gratis/actualizar" title="actualizar iconos">Actualizar iconos creados por Roundicons - Flaticon</a>
+save icon:
+<a href="https://www.flaticon.es/iconos-gratis/salvar" title="salvar iconos">Salvar iconos creados por Freepik - Flaticon</a>
+seleccionar bloques:
+<a href="https://www.flaticon.es/iconos-gratis/seleccione" title="seleccione iconos">Seleccione iconos creados por Freepik - Flaticon</a>
+linea recta:
+<a href="https://www.flaticon.es/iconos-gratis/nodo" title="nodo iconos">Nodo iconos creados por Freepik - Flaticon</a>
+linea curva:
+<a href="https://www.flaticon.es/iconos-gratis/arco" title="arco iconos">Arco iconos creados por Freepik - Flaticon</a>
+Cuadrado
+<a href="https://www.flaticon.es/iconos-gratis/perimetro" title="perímetro iconos">Perímetro iconos creados por Freepik - Flaticon</a>
+Circulo
+<a href="https://www.flaticon.es/iconos-gratis/circulo" title="circulo iconos">Circulo iconos creados por Freepik - Flaticon</a>
+Polígono
+<a href="https://www.flaticon.es/iconos-gratis/poligono" title="polígono iconos">Polígono iconos creados por Freepik - Flaticon</a>
+flecha arriba:
+<a href="https://www.flaticon.es/iconos-gratis/flecha" title="flecha iconos">Flecha iconos creados por Freepik - Flaticon</a>
+flecha abajo:
+<a href="https://www.flaticon.es/iconos-gratis/flecha" title="flecha iconos">Flecha iconos creados por Freepik - Flaticon</a>
+flecha derecha:
+<a href="https://www.flaticon.es/iconos-gratis/siguiente" title="siguiente iconos">Siguiente iconos creados por Pixel perfect - Flaticon</a>
+flecha izquierda:
+<a href="https://www.flaticon.es/iconos-gratis/regreso" title="regreso iconos">Regreso iconos creados por Pixel perfect - Flaticon</a>
+sumar:
+<a href="https://www.flaticon.es/iconos-gratis/suma" title="suma iconos">Suma iconos creados por NajmunNahar - Flaticon</a>

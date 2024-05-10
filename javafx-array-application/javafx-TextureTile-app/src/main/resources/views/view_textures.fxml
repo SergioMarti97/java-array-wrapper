@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.canvas.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<SplitPane fx:id="root" dividerPositions="0.5" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.array.wrapper.texture.app.controller.TextureTileController">
+    <VBox alignment="TOP_CENTER">
+        <HBox alignment="CENTER_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
+            <children>
+                <Label prefWidth="120.0" text="Textura de origen">
+                    <HBox.margin>
+                        <Insets bottom="2.5" left="5.0" right="2.5" top="5.0" />
+                    </HBox.margin>
+                </Label>
+                <Button fx:id="btOpenTextureTile" contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false">
+                    <graphic>
+                        <ImageView fitHeight="15.0" fitWidth="15.0" preserveRatio="true">
+                            <Image url="@../icons/carpeta.png" />
+                        </ImageView>
+                    </graphic>
+                    <HBox.margin>
+                        <Insets bottom="5.0" left="2.5" right="2.5" top="5.0" />
+                    </HBox.margin>
+                </Button>
+                <TextField fx:id="tfTextureTile" prefWidth="100.0" HBox.hgrow="ALWAYS">
+                    <HBox.margin>
+                        <Insets bottom="5.0" left="2.5" right="2.5" top="5.0" />
+                    </HBox.margin>
+                </TextField>
+            <Button fx:id="btSaveTextureTile" mnemonicParsing="false">
+               <graphic>
+                  <ImageView fitHeight="15.0" fitWidth="15.0" preserveRatio="true">
+                     <image>
+                        <Image url="@../icons/disquete.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+                <Button fx:id="btLoadTextureTile" mnemonicParsing="false">
+                    <graphic>
+                        <ImageView fitHeight="15.0" fitWidth="15.0" preserveRatio="true">
+                            <Image url="@../icons/actualizar.png" />
+                        </ImageView>
+                    </graphic>
+                    <HBox.margin>
+                        <Insets bottom="5.0" left="2.5" right="2.5" top="5.0" />
+                    </HBox.margin>
+                </Button>
+                <Button fx:id="btCloseTextureTile" mnemonicParsing="false">
+                    <graphic>
+                        <ImageView fitHeight="15.0" fitWidth="15.0" preserveRatio="true">
+                            <Image url="@../icons/circulo-marca-x.png" />
+                        </ImageView>
+                    </graphic>
+                    <HBox.margin>
+                        <Insets bottom="5.0" left="2.5" right="5.0" top="5.0" />
+                    </HBox.margin>
+                </Button>
+            </children>
+        </HBox>
+      <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
+         <children>
+            <Label prefWidth="120.0" text="Archivo de destino">
+               <HBox.margin>
+                  <Insets bottom="2.5" left="5.0" right="2.5" top="5.0" />
+               </HBox.margin>
+            </Label>
+            <Button fx:id="btOpenMetaInfoFile" contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false">
+               <graphic>
+                  <ImageView fitHeight="15.0" fitWidth="15.0" preserveRatio="true">
+                     <image>
+                        <Image url="@../icons/carpeta.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <HBox.margin>
+                  <Insets bottom="5.0" left="2.5" right="2.5" top="5.0" />
+               </HBox.margin>
+            </Button>
+            <TextField fx:id="tfMetaInfoFile" prefWidth="100.0" HBox.hgrow="ALWAYS">
+               <HBox.margin>
+                  <Insets bottom="5.0" left="2.5" right="2.5" top="5.0" />
+               </HBox.margin>
+            </TextField>
+            <Button fx:id="btSaveMetaInfoFile" mnemonicParsing="false">
+                <graphic>
+                    <ImageView fitHeight="15.0" fitWidth="15.0" preserveRatio="true">
+                        <Image url="@../icons/disquete.png" />
+                    </ImageView>
+                </graphic>
+               <HBox.margin>
+                  <Insets bottom="5.0" left="2.5" right="2.5" top="2.5" />
+               </HBox.margin>
+            </Button>
+            <Button fx:id="btCloseMetaInfoFile" mnemonicParsing="false">
+               <graphic>
+                  <ImageView fitHeight="15.0" fitWidth="15.0" preserveRatio="true">
+                     <image>
+                        <Image url="@../icons/circulo-marca-x.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <HBox.margin>
+                  <Insets bottom="5.0" left="2.5" right="5.0" top="5.0" />
+               </HBox.margin>
+            </Button>
+         </children>
+      </HBox>
+      <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="74.0">
+         <children>
+            <Label prefWidth="125.0" text="Anchura del mosaico">
+               <HBox.margin>
+                  <Insets bottom="5.0" left="5.0" right="2.5" top="2.5" />
+               </HBox.margin>
+            </Label>
+            <TextField fx:id="tfTextureTileWidth" editable="false" prefWidth="50.0" promptText="0">
+               <HBox.margin>
+                  <Insets bottom="5.0" left="2.5" right="5.0" top="2.5" />
+               </HBox.margin>
+            </TextField>
+         </children>
+      </HBox>
+      <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="43.0">
+         <children>
+            <Label prefWidth="125.0" text="Altura del mosaico">
+               <HBox.margin>
+                  <Insets bottom="5.0" left="5.0" right="2.5" top="2.5" />
+               </HBox.margin>
+            </Label>
+            <TextField fx:id="tfTextureTileHeight" editable="false" prefWidth="50.0" promptText="0">
+               <HBox.margin>
+                  <Insets bottom="5.0" left="2.5" right="5.0" top="2.5" />
+               </HBox.margin>
+            </TextField>
+         </children>
+      </HBox>
+        <HBox alignment="CENTER_LEFT">
+            <children>
+                <Label prefWidth="125.0" text="Anchura de las texturas">
+                    <HBox.margin>
+                        <Insets bottom="2.5" left="5.0" right="2.5" top="2.5" />
+                    </HBox.margin>
+                </Label>
+                <TextField fx:id="tfTileWidth" prefWidth="50.0" promptText="0">
+                    <HBox.margin>
+                        <Insets bottom="2.5" left="2.5" right="5.0" top="2.5" />
+                    </HBox.margin>
+                </TextField>
+            </children>
+        </HBox>
+        <HBox alignment="CENTER_LEFT">
+            <children>
+                <Label prefWidth="125.0" text="Altura de las texturas">
+                    <HBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="2.5" top="2.5" />
+                    </HBox.margin>
+                </Label>
+                <TextField fx:id="tfTileHeight" prefWidth="50.0" promptText="0">
+                    <HBox.margin>
+                        <Insets bottom="5.0" left="2.5" right="5.0" top="2.5" />
+                    </HBox.margin>
+                </TextField>
+            </children>
+        </HBox>
+      <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="74.0">
+         <children>
+            <Label prefWidth="175.0" text="Número de texturas a lo ancho">
+               <HBox.margin>
+                  <Insets bottom="5.0" left="5.0" right="2.5" top="2.5" />
+               </HBox.margin>
+            </Label>
+            <TextField fx:id="tfNumTilesWidth" prefWidth="50.0" promptText="0">
+               <HBox.margin>
+                  <Insets bottom="5.0" left="2.5" right="5.0" top="2.5" />
+               </HBox.margin>
+            </TextField>
+         </children>
+      </HBox>
+      <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="107.0">
+         <children>
+            <Label prefWidth="175.0" text="Número de texturas a lo alto">
+               <HBox.margin>
+                  <Insets bottom="5.0" left="5.0" right="2.5" top="2.5" />
+               </HBox.margin>
+            </Label>
+            <TextField fx:id="tfNumTilesHeight" prefWidth="50.0" promptText="0">
+               <HBox.margin>
+                  <Insets bottom="5.0" left="2.5" right="5.0" top="2.5" />
+               </HBox.margin>
+            </TextField>
+         </children>
+      </HBox>
+      <Separator />
+      <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="140.0">
+         <children>
+            <Label prefWidth="25.0" text="id:">
+               <HBox.margin>
+                  <Insets bottom="5.0" left="5.0" right="2.5" top="2.5" />
+               </HBox.margin>
+            </Label>
+            <TextField fx:id="tfTextureId" prefWidth="50.0" promptText="id">
+               <HBox.margin>
+                  <Insets bottom="5.0" left="2.5" right="5.0" top="2.5" />
+               </HBox.margin>
+            </TextField>
+         </children>
+      </HBox>
+      <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="242.0">
+         <children>
+            <Label prefWidth="50.0" text="posición">
+               <HBox.margin>
+                  <Insets bottom="5.0" left="5.0" right="2.5" top="2.5" />
+               </HBox.margin>
+            </Label>
+            <TextField fx:id="tfTexturePosX" prefWidth="50.0" promptText="0">
+               <HBox.margin>
+                  <Insets bottom="5.0" left="2.5" right="5.0" top="2.5" />
+               </HBox.margin>
+            </TextField>
+            <Label text="x">
+               <HBox.margin>
+                  <Insets bottom="5.0" right="5.0" top="5.0" />
+               </HBox.margin>
+            </Label>
+            <TextField fx:id="tfTexturePosY" layoutX="71.0" layoutY="13.0" prefWidth="50.0" promptText="0">
+               <HBox.margin>
+                  <Insets bottom="5.0" left="2.5" right="5.0" top="2.5" />
+               </HBox.margin>
+            </TextField>
+            <Label layoutX="126.0" layoutY="18.0" text="y" />
+         </children>
+      </HBox>
+      <HBox>
+         <children>
+            <TextField HBox.hgrow="ALWAYS">
+               <HBox.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </HBox.margin>
+            </TextField>
+            <Button fx:id="btAddProperty" mnemonicParsing="false">
+                <graphic>
+                    <ImageView fitHeight="15.0" fitWidth="15.0" preserveRatio="true">
+                        <Image url="@../icons/mas.png" />
+                    </ImageView>
+                </graphic>
+               <HBox.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </HBox.margin>
+            </Button>
+         </children>
+      </HBox>
+      <HBox>
+         <children>
+            <ComboBox fx:id="cbTextureProperties" editable="true" HBox.hgrow="ALWAYS">
+               <HBox.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </HBox.margin>
+            </ComboBox>
+         </children>
+      </HBox>
+      <ListView VBox.vgrow="ALWAYS">
+         <VBox.margin>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </VBox.margin>
+      </ListView>
+    </VBox>
+   <VBox alignment="CENTER">
+      <children>
+         <Canvas fx:id="canvas" height="500.0" width="500.0" />
+         <HBox alignment="TOP_CENTER">
+            <children>
+               <Button fx:id="btTexturePrevious" mnemonicParsing="false" text="Anterior">
+                   <graphic>
+                       <ImageView fitHeight="15.0" fitWidth="15.0" preserveRatio="true">
+                           <Image url="@../icons/flecha-izquierda.png" />
+                       </ImageView>
+                   </graphic>
+                  <HBox.margin>
+                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                  </HBox.margin>
+               </Button>
+               <Button fx:id="btTextureNext" contentDisplay="RIGHT" mnemonicParsing="false" text="Siguiente">
+                   <graphic>
+                       <ImageView fitHeight="15.0" fitWidth="15.0" preserveRatio="true">
+                           <Image url="@../icons/flecha-derecha.png" />
+                       </ImageView>
+                   </graphic>
+                  <HBox.margin>
+                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                  </HBox.margin>
+               </Button>
+            </children>
+         </HBox>
+      </children>
+   </VBox>
+</SplitPane>

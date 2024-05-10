@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>java-array</artifactId>
+        <groupId>org.array</groupId>
+        <version>2.0</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>javafx-array-application</artifactId>
+    <packaging>pom</packaging>
+    <version>1.0</version>
+    <modules>
+        <module>javafx-TextureTile-app</module>
+        <module>javafx-Texture-transforms-app</module>
+    </modules>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.array</groupId>
+            <artifactId>java-array-texture</artifactId>
+            <version>2.0</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-controls</artifactId>
+            <version>15.0.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-fxml</artifactId>
+            <version>11.0.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.javafx.game</groupId>
+            <artifactId>javafx-game-project</artifactId>
+            <version>1.0</version>
+            <scope>system</scope>
+            <systemPath>${maven.local.repository}/org/javafx/game/javafx-game/1.0/javafx-game-1.0.jar</systemPath>
+        </dependency>
+    </dependencies>
+
+</project>

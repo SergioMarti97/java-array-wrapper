@@ -3,3 +3,5 @@
 java-array-texture/target
 java-array-wrapper/target
 java-array-gltexture/target
+javafx-array-application/javafx-TextureTile-app/target
+javafx-array-application/javafx-Texture-transforms-app/target
