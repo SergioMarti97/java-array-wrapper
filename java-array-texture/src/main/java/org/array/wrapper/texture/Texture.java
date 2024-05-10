@@ -11,7 +11,7 @@ public class Texture extends Array2di {
 
     protected boolean alpha = false;
 
-    // Constructors
+    // Array constructors
 
     public Texture(int[] array, int width, int height) {
         super(array, width, height);
@@ -29,9 +29,7 @@ public class Texture extends Array2di {
         super(size);
     }
 
-    public Texture(Array2di array2di) {
-        super(array2di);
-    }
+    // Image constructors
 
     public Texture(BufferedImage image) {
         super(0);
@@ -42,6 +40,19 @@ public class Texture extends Array2di {
         super(0);
         load(file);
     }
+
+    // Copy constructors
+
+    public Texture(Array2di array2di) {
+        super(array2di);
+    }
+
+    public Texture(Texture copy) {
+        super(copy.array, copy.width, copy.height);
+        alpha = copy.alpha;
+    }
+
+    // Methods
 
     protected void load(BufferedImage image) {
         width = image.getWidth();
@@ -67,11 +78,10 @@ public class Texture extends Array2di {
 
     @Override
     public String toString() {
-        return "Texture{" +
+        return "Texture " +
                 "width=" + width +
                 ", height=" + height +
-                ", alpha=" + alpha +
-                '}';
+                ", alpha=" + alpha;
     }
 
 }

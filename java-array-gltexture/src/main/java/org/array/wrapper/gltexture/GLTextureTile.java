@@ -1,148 +1,182 @@
 package org.array.wrapper.gltexture;
 
 import org.array.wrapper.d2.Array2di;
-import org.array.wrapper.d2.operations.ShapeArray2diOperations;
+import org.array.wrapper.d2.Array2do;
+import org.array.wrapper.texture.Texture;
+import org.array.wrapper.texture.TextureTile;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 
-public class GLTextureTile extends GLTexture {
-    
-    protected Array2dGLTexture grid;
+import static org.lwjgl.opengl.GL11.GL_TEXTURE_2D;
+import static org.lwjgl.opengl.GL11.glBindTexture;
 
-    protected final int tileW;
+public class GLTextureTile extends TextureTile implements IGLTexture {
 
-    protected final int tileH;
+    protected int texture;
 
-    protected final int numTilesX;
+    protected Array2di ids;
 
-    protected final int numTilesY;
+    // Array constructors
 
-    public GLTextureTile(int[] array, int width, int height, int tileW, int tileH, int numTilesX, int numTilesY) {
-        super(array, width, height);
-        this.tileW = tileW;
-        this.tileH = tileH;
-        this.numTilesX = numTilesX;
-        this.numTilesY = numTilesY;
+    public GLTextureTile(int[] array, int width, int height, int tileW, int tileH) {
+        super(array, width, height, tileW, tileH);
     }
 
     public GLTextureTile(int initialValue, int width, int height, int tileW, int tileH) {
-        super(initialValue, width, height);
-        this.tileW = tileW;
-        this.tileH = tileH;
-        numTilesX = width / tileW;
-        numTilesY = height / tileH;
-        grid = new Array2dGLTexture(this);
+        super(initialValue, width, height, tileW, tileH);
     }
 
     public GLTextureTile(int width, int height, int tileW, int tileH) {
-        super(width, height);
-        this.tileW = tileW;
-        this.tileH = tileH;
-        numTilesX = width / tileW;
-        numTilesY = height / tileH;
-        grid = new Array2dGLTexture(this);
+        super(width, height, tileW, tileH);
     }
 
     public GLTextureTile(int size, int tileW, int tileH) {
-        super(size);
-        this.tileW = tileW;
-        this.tileH = tileH;
-        numTilesX = width / tileW;
-        numTilesY = height / tileH;
-        grid = new Array2dGLTexture(this);
+        super(size, tileW, tileH);
     }
 
-    public GLTextureTile(Array2di array2di, int tileW, int tileH) {
-        super(array2di);
-        this.tileW = tileW;
-        this.tileH = tileH;
-        numTilesX = width / tileW;
-        numTilesY = height / tileH;
-        grid = new Array2dGLTexture(this);
-    }
+    // Image constructors
 
     public GLTextureTile(BufferedImage image, int tileW, int tileH) {
-        super(image);
-        this.tileW = tileW;
-        this.tileH = tileH;
-        numTilesX = width / tileW;
-        numTilesY = height / tileH;
-        grid = new Array2dGLTexture(this);
+        super(image, tileW, tileH);
+        this.texture = loadId();
+        this.ids = loadIdsArray2di();
     }
 
     public GLTextureTile(File file, int tileW, int tileH) throws IOException {
-        super(file);
-        this.tileW = tileW;
-        this.tileH = tileH;
-        numTilesX = width / tileW;
-        numTilesY = height / tileH;
-        grid = new Array2dGLTexture(this);
+        super(file, tileW, tileH);
+        this.texture = loadId();
+        this.ids = loadIdsArray2di();
     }
 
-    public GLTexture getTile(final int tileX, final int tileY) {
-        return grid.get(tileX, tileY);
+    // Copy constructors
+
+    public GLTextureTile(Array2di array2di, int tileW, int tileH) {
+        super(array2di, tileW, tileH);
+        this.texture = loadId();
+        this.ids = loadIdsArray2di();
     }
 
-    public GLTexture getTile(final int index) {
-        return grid.get(index);
+    public GLTextureTile(Texture texture, int tileW, int tileH) {
+        super(texture, tileW, tileH);
+        this.texture = loadId();
+        this.ids = loadIdsArray2di();
     }
 
-    public void writeArray() {
-        Array2di p = new Array2di(width, height);
-        ShapeArray2diOperations op = new ShapeArray2diOperations(p);
-        for (int x = 0; x < grid.getWidth(); x++) {
-            for (int y = 0; y < grid.getHeight(); y++) {
-                op.writeArray2d(getTile(x, y), x * tileW, y * tileH);
-            }
+    public GLTextureTile(Texture texture, int id, int tileW, int tileH) {
+        super(texture, tileW, tileH);
+        this.texture = id;
+        this.ids = loadIdsArray2di();
+    }
+
+    public GLTextureTile(GLTexture texture, int tileW, int tileH) {
+        super(texture, tileW, tileH);
+        this.texture = texture.texture;
+        this.ids = loadIdsArray2di();
+    }
+
+    public GLTextureTile(GLTextureTile copy) {
+        super(copy);
+        this.texture = copy.texture;
+        this.ids = copy.ids;
+    }
+
+    // Methods
+
+    public int[] loadIdsArray() {
+        int[] ids = new int[numTilesX * numTilesY];
+        for (int i = 0; i < grid.size(); i++) {
+            ids[i] = new GLTexture(grid.get(i)).loadId();
         }
-        set(p);
+        return ids;
+    }
+
+    public Array2di loadIdsArray2di() {
+        return new Array2di(loadIdsArray(), numTilesX, numTilesY);
     }
 
     // Getters
 
-    public int getTileW() {
-        return tileW;
+    @Override
+    public GLTexture getTile(int tileX, int tileY) {
+        return new GLTexture(super.getTile(tileX, tileY));
     }
 
-    public int getTileH() {
-        return tileH;
+    @Override
+    public GLTexture getTile(int index) {
+        return new GLTexture(super.getTile(index));
     }
 
-    public int getNumTilesX() {
-        return numTilesX;
+    @Override
+    public void writeArray() {
+        super.writeArray();
+        texture = loadId();
+        this.ids = loadIdsArray2di();
     }
 
-    public int getNumTilesY() {
-        return numTilesY;
+    public Array2di getIds() {
+        if (ids == null) {
+            ids = loadIdsArray2di();
+        }
+        return ids;
     }
 
-    public Array2dGLTexture getGrid() {
-        return grid;
+    public int[] getIdsArray() {
+        return ids.getArray();
     }
 
-    public GLTexture[] getTexturesArray() {
-        return grid.getArray();
+    public List<Integer> getIdsList() {
+        final int[] ids = getIdsArray();
+        List<Integer> l = new ArrayList<>();
+        for (int id : ids) {
+            l.add(id);
+        }
+        return l;
     }
 
-    public List<GLTexture> getTexturesList() {
-        return Arrays.asList(getTexturesArray());
+    public GLTexture[] getGLTextures() {
+        GLTexture[] array = new GLTexture[grid.size()];
+        for (int i = 0; i < grid.size(); i++) {
+            array[i] = new GLTexture(grid.get(0), ids.get(i));
+        }
+        return array;
+    }
+
+    public Array2do<GLTexture> getArray2dGLTexture() { // todo no sé si tendrán los "textures" correctos las instancias GLTexture
+        return Array2do.newNotType(getGLTextures(), grid.getWidth(), grid.getHeight());
+    }
+
+    // OpenGL inherit methods
+
+    @Override
+    public int loadId() {
+        return GLTextureUtils.loadId(width, height, array);
+    }
+
+    @Override
+    public void bind() {
+        glBindTexture(GL_TEXTURE_2D, texture);
+    }
+
+    @Override
+    public void unbind() {
+        glBindTexture(GL_TEXTURE_2D, 0);
+    }
+
+    public int getTextureID() {
+        if (texture == 0) {
+            texture = loadId();
+        }
+        return texture;
     }
 
     @Override
     public String toString() {
-        return "GLTextureTile{" +
-                "width=" + width +
-                ", height=" + height +
-                ", alpha=" + alpha +
-                ", tileW=" + tileW +
-                ", tileH=" + tileH +
-                ", numTilesX=" + numTilesX +
-                ", numTilesY=" + numTilesY +
-                '}';
+        return super.toString().replaceAll("^TextureTile", "GLTextureTile") +
+                ", id=" + texture;
     }
     
 }

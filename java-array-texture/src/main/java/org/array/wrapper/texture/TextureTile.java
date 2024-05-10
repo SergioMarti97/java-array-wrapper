@@ -33,6 +33,8 @@ public class TextureTile extends Texture {
      */
     protected final int numTilesY;
 
+    // Array constructors
+
     public TextureTile(int[] array, int width, int height, int tileW, int tileH) {
         super(array, width, height);
         this.tileW = tileW;
@@ -69,14 +71,7 @@ public class TextureTile extends Texture {
         grid = new Array2dTexture(this);
     }
 
-    public TextureTile(Array2di array2di, int tileW, int tileH) {
-        super(array2di);
-        this.tileW = tileW;
-        this.tileH = tileH;
-        numTilesX = width / tileW;
-        numTilesY = height / tileH;
-        grid = new Array2dTexture(this);
-    }
+    // Image constructors
 
     public TextureTile(BufferedImage image, int tileW, int tileH) {
         super(image);
@@ -95,6 +90,37 @@ public class TextureTile extends Texture {
         numTilesY = height / tileH;
         grid = new Array2dTexture(this);
     }
+
+    // Copy constructors
+
+    public TextureTile(Array2di array2di, int tileW, int tileH) {
+        super(array2di);
+        this.tileW = tileW;
+        this.tileH = tileH;
+        numTilesX = width / tileW;
+        numTilesY = height / tileH;
+        grid = new Array2dTexture(this);
+    }
+
+    public TextureTile(Texture texture, int tileW, int tileH) {
+        super(texture);
+        this.tileW = tileW;
+        this.tileH = tileH;
+        numTilesX = width / tileW;
+        numTilesY = height / tileH;
+        grid = new Array2dTexture(this);
+    }
+
+    public TextureTile(TextureTile copy) {
+        super(copy);
+        this.tileW = copy.tileW;
+        this.tileH = copy.tileH;
+        numTilesX = copy.numTilesX;
+        numTilesY = copy.numTilesY;
+        grid = new Array2dTexture(copy.grid); // todo check this
+    }
+
+    // Methods
 
     public Texture getTile(final int tileX, final int tileY) {
         return grid.get(tileX, tileY);
@@ -147,15 +173,11 @@ public class TextureTile extends Texture {
 
     @Override
     public String toString() {
-        return "TextureTile{" +
-                "width=" + width +
-                ", height=" + height +
-                ", alpha=" + alpha +
+        return super.toString().replaceAll("^Texture", "TextureTile") +
                 ", tileW=" + tileW +
                 ", tileH=" + tileH +
                 ", numTilesX=" + numTilesX +
-                ", numTilesY=" + numTilesY +
-                '}';
+                ", numTilesY=" + numTilesY;
     }
 
 }

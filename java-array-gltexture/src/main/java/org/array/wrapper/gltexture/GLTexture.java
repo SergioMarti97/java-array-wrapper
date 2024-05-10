@@ -6,15 +6,14 @@ import org.array.wrapper.texture.Texture;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.nio.ByteBuffer;
-import java.nio.ByteOrder;
-import java.nio.IntBuffer;
 
 import static org.lwjgl.opengl.GL11.*;
 
-public class GLTexture extends Texture {
+public class GLTexture extends Texture implements IGLTexture {
 
     protected int texture;
+
+    // Array constructors
 
     public GLTexture(int width, int height) {
         super(width, height);
@@ -32,61 +31,70 @@ public class GLTexture extends Texture {
         super(initialValue, width, height);
     }
 
+    // Image constructors
+
     public GLTexture(BufferedImage image) {
         super(image);
-        texture = loadTextureID();
+        texture = loadId();
     }
 
     public GLTexture(File file) throws IOException {
         super(file);
-        texture = loadTextureID();
+        texture = loadId();
     }
+
+    // Copy constructors
 
     public GLTexture(Array2di array2di) {
         super(array2di);
-        texture = loadTextureID();
+        texture = loadId();
     }
 
     public GLTexture(Texture texture) {
         super(texture);
-        super.alpha = texture.isAlpha();
-        this.texture = loadTextureID();
+        this.texture = loadId();
     }
 
-    public int loadTextureID() {
-        int[] data = new int[width * height];
-        for (int i = 0; i < width * height; i++) {
-            int a = (array[i] & 0xff000000) >> 24;
-            int r = (array[i] & 0xff0000) >> 16;
-            int g = (array[i] & 0xff00) >> 8;
-            int b = (array[i] & 0xff);
-
-            data[i] = a << 24 | b << 16 | g << 8 | r;
-        }
-
-        int result = glGenTextures();
-        glBindTexture(GL_TEXTURE_2D, result);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-
-        IntBuffer buffer = ByteBuffer.allocateDirect(data.length << 2).order(ByteOrder.nativeOrder()).asIntBuffer();
-        buffer.put(data).flip();
-
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, buffer);
-        glBindTexture(GL_TEXTURE_2D, 0);
-        return result;
+    public GLTexture(Texture texture, int id) {
+        super(texture);
+        this.texture = id;
     }
 
+    public GLTexture(GLTexture copy) {
+        super(copy);
+        texture = copy.texture;
+    }
+
+    // OpenGL inherit methods
+
+    @Override
+    public int loadId() {
+        return GLTextureUtils.loadId(width, height, array);
+    }
+
+    @Override
     public void bind() {
         glBindTexture(GL_TEXTURE_2D, texture);
     }
 
+    @Override
     public void unbind() {
         glBindTexture(GL_TEXTURE_2D, 0);
     }
 
+    // Getters
+
     public int getTextureID() {
+        if (texture == 0) {
+            texture = loadId();
+        }
         return texture;
+    }
+
+    @Override
+    public String toString() {
+        return super.toString().replaceAll("^Texture", "GLTexture") +
+                ", id=" + texture;
     }
 
 }
