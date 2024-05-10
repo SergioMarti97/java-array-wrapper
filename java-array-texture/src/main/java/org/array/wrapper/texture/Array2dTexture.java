@@ -11,18 +11,18 @@ public class Array2dTexture extends Array2do<Texture> {
 
     public Array2dTexture(TextureTile tt) {
         super(tt.numTilesX, tt.numTilesY);
-        for (int x = 0; x < tt.numTilesX; x++) {
-            for (int y = 0; y < tt.numTilesY; y++) {
-                this.set(x, y, getTileImage(tt, x, y));
+        for (int y = 0; y < tt.numTilesY; y++) {
+            for (int x = 0; x < tt.numTilesX; x++) {
+                this.set(x, y, getTile(tt, x, y));
             }
         }
     }
 
-    private Texture getTileImage(TextureTile it, int tileX, int tileY) {
-        Array2di p = new Array2di(it.tileW, it.tileH);
-        for (int y = 0; y < it.tileH; y++) {
-            for (int x = 0; x < it.tileW; x++) {
-                p.set(x, y, it.get(tileX * it.tileW + x, tileY * it.tileH + y));
+    private Texture getTile(TextureTile tt, int tilePosX, int tilePosY) {
+        Array2di p = new Array2di(tt.tileW, tt.tileH);
+        for (int y = 0; y < tt.tileH; y++) {
+            for (int x = 0; x < tt.tileW; x++) {
+                p.set(x, y, tt.get(tilePosX * tt.tileW + x, tilePosY * tt.tileH + y));
             }
         }
         return new Texture(p);

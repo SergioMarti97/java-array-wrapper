@@ -15,8 +15,7 @@ class TextureTileTest {
     void getTile() throws IOException {
         final String filename = Paths.get( "src", "test", "resources", "Joseph21_05.png").toAbsolutePath().toString();
         TextureTile tt = new TextureTile(new File(filename), 32, 32);
-        // Texture t = tt.getTile(3);
-        // assertNotNull(t);
+        assertNotNull(tt);
         for (var t : tt.getGrid().getArray()) {
             ColorsASCII.renderTexture(t);
             assertNotNull(t);
