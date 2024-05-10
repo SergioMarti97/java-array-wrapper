@@ -75,10 +75,10 @@ public abstract class Array1d<T> {
         return width;
     }
 
-    @Override
-    public String toString() {
+    // toString methods
+
+    public String arrayValuesToString() {
         final StringBuilder out = new StringBuilder();
-        out.append("width = ").append(width).append(" [");
         forEach((array, x, value) -> {
             out.append(x).append('=').append(value);
             if (x != array.getWidth() - 1) {
@@ -86,8 +86,12 @@ public abstract class Array1d<T> {
             }
             return CellConsumer.CONTINUE;
         });
-        out.append(']');
         return out.toString();
+    }
+
+    @Override
+    public String toString() { ;
+        return "width=" + width + " [" + arrayValuesToString() + ']';
     }
 
 }

@@ -93,8 +93,7 @@ public class GLTexture extends Texture implements IGLTexture {
 
     @Override
     public String toString() {
-        return super.toString().replaceAll("^Texture", "GLTexture") +
-                ", id=" + texture;
+        return super.toString().replaceAll("^Texture", "GLTexture") + " id=" + texture;
     }
 
 }

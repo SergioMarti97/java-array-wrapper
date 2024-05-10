@@ -34,9 +34,12 @@ class GLTextureTileTest {
         GL.createCapabilities();
 
         final String filename = Paths.get( "src", "test", "resources", "Joseph21_05.png").toAbsolutePath().toString();
-        GLTextureTile tt = new GLTextureTile(new File(filename), 32, 32);
-        tt.bind();
-        tt.unbind();
+        GLTextureTile gltt = new GLTextureTile(new File(filename), 32, 32);
+        assertNotNull(gltt);
+        System.out.println(gltt);
+
+        gltt.bind();
+        gltt.unbind();
 
         glfwFreeCallbacks(window);
         glfwDestroyWindow(window);

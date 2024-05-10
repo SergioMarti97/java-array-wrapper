@@ -102,12 +102,11 @@ public abstract class Array3d<T> extends Array2d<T> {
         return super.size() * length;
     }
 
+    // toString methods
+
     @Override
-    public String toString() {
+    public String arrayValuesToString() {
         final StringBuilder out = new StringBuilder();
-        out.append("width = ").append(width);
-        out.append(" height = ").append(height);
-        out.append(" length = ").append(length).append('\n');
         AtomicInteger numRows = new AtomicInteger();
         forEach(((array, index, value) -> {
             int x = toX(index);
@@ -128,6 +127,11 @@ public abstract class Array3d<T> extends Array2d<T> {
         }));
         out.setLength(out.length() - 2);
         return out.toString();
+    }
+
+    @Override
+    public String toString() {
+        return "width=" + width + " height=" + height + " length=" + length + '\n' + arrayValuesToString();
     }
 
 }

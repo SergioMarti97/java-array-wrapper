@@ -16,9 +16,11 @@ class TextureTileTest {
         final String filename = Paths.get( "src", "test", "resources", "Joseph21_05.png").toAbsolutePath().toString();
         TextureTile tt = new TextureTile(new File(filename), 32, 32);
         assertNotNull(tt);
+        System.out.println(tt);
         for (var t : tt.getGrid().getArray()) {
-            ColorsASCII.renderTexture(t);
+            // ColorsASCII.renderTexture(t);
             assertNotNull(t);
+            System.out.println(t);
         }
     }
 

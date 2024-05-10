@@ -174,10 +174,10 @@ public class TextureTile extends Texture {
     @Override
     public String toString() {
         return super.toString().replaceAll("^Texture", "TextureTile") +
-                ", tileW=" + tileW +
-                ", tileH=" + tileH +
-                ", numTilesX=" + numTilesX +
-                ", numTilesY=" + numTilesY;
+                " tileW=" + tileW +
+                " tileH=" + tileH +
+                " numTilesX=" + numTilesX +
+                " numTilesY=" + numTilesY;
     }
 
 }

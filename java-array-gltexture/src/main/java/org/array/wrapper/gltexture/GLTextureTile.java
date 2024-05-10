@@ -175,8 +175,7 @@ public class GLTextureTile extends TextureTile implements IGLTexture {
 
     @Override
     public String toString() {
-        return super.toString().replaceAll("^TextureTile", "GLTextureTile") +
-                ", id=" + texture;
+        return super.toString().replaceAll("^TextureTile", "GLTextureTile") + " id=" + texture;
     }
     
 }

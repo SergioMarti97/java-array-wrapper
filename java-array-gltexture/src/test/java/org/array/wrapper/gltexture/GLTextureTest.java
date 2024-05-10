@@ -34,6 +34,9 @@ class GLTextureTest {
 
         final String filename = Paths.get( "src", "test", "resources", "Joseph21_05.png").toAbsolutePath().toString();
         GLTexture glt = new GLTexture(new File(filename));
+        assertNotNull(glt);
+        System.out.println(glt);
+
         glt.bind();
         glt.unbind();
 

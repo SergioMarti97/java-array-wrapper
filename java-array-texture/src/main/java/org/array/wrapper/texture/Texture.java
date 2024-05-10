@@ -78,10 +78,7 @@ public class Texture extends Array2di {
 
     @Override
     public String toString() {
-        return "Texture " +
-                "width=" + width +
-                ", height=" + height +
-                ", alpha=" + alpha;
+        return "Texture " + "width=" + width + " height=" + height + " alpha=" + alpha;
     }
 
 }

@@ -85,10 +85,11 @@ public abstract class Array2d<T> extends Array1d<T> {
         return super.size() * height;
     }
 
+    // toString methods
+
     @Override
-    public String toString() {
+    public String arrayValuesToString() {
         final StringBuilder out = new StringBuilder();
-        out.append("width = ").append(width).append(" height = ").append(height).append('\n');
         forEach((array, index, value) -> {
             int x = toX(index);
             int y = toY(index);
@@ -101,6 +102,11 @@ public abstract class Array2d<T> extends Array1d<T> {
             return CellConsumer.CONTINUE;
         });
         return out.toString();
+    }
+
+    @Override
+    public String toString() {
+        return "width=" + width + " height=" + height + '\n' + arrayValuesToString();
     }
 
 }
