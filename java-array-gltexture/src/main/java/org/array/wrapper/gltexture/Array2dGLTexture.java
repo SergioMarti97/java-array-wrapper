@@ -32,7 +32,7 @@ public class Array2dGLTexture extends Array2do<GLTexture> {
 
     @Override
     protected GLTexture[] instanceArray(int size) {
-        return new GLTexture[0];
+        return new GLTexture[size];
     }
 
 }
