@@ -15,6 +15,7 @@ class TextureTest {
         final String filename = Paths.get( "src", "test", "resources", "Joseph21_05.png").toAbsolutePath().toString();
         Texture t = new Texture(new File(filename));
         assertNotNull(t);
+        System.out.println(t);
     }
 
 }

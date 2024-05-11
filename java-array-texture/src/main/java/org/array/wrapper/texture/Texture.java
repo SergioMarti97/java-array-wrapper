@@ -1,7 +1,5 @@
 package org.array.wrapper.texture;
 
-import org.array.wrapper.CellConsumer;
-import org.array.wrapper.d1.Array1d;
 import org.array.wrapper.d2.Array2di;
 
 import javax.imageio.ImageIO;
@@ -57,6 +55,12 @@ public class Texture extends Array2di {
 
     // Methods
 
+    public BufferedImage toBufferedImage() {
+        BufferedImage bufferedImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+        bufferedImage.setRGB(0, 0, width, height, array, 0, width);
+        return bufferedImage;
+    }
+
     public void load(BufferedImage image) {
         width = image.getWidth();
         height = image.getHeight();
@@ -66,14 +70,11 @@ public class Texture extends Array2di {
     }
 
     public void load(File file) throws IOException {
-        BufferedImage image = ImageIO.read(file);
-        load(image);
+        load(ImageIO.read(file));
     }
 
     public void save(final File file, final String typeImage) throws IOException {
-        BufferedImage bufferedImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
-        bufferedImage.setRGB(0, 0, width, height, array, 0, width);
-        ImageIO.write(bufferedImage, typeImage, file);
+        ImageIO.write(toBufferedImage(), typeImage, file);
     }
 
     public void save(final String filename, final String typeImage) throws IOException {
